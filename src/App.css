@@ -4,6 +4,8 @@
   margin: 0;
   padding: 2rem;
   text-align: center;
+  background-color:hsl(0,0%,20%);
+  color: aliceblue;
 }
 
 .logo {
@@ -58,4 +60,22 @@
 .error {
   color: red;
   font-weight: bold;
+}
+
+/* table thead{
+  background-color:rgb(3, 128, 247) !important;
+  color: #fffcfc;
+} */
+
+.bg-light {
+  background-color: rgb(3, 128, 247)  !important;
+  color: #ffffff;
+}
+tbody, td, tfoot, th, thead, tr {
+  background-color: rgb(64, 64, 64) !important;
+  color: #fffcfc !important;
+}
+
+.navbarMenu{
+  color: aqua;
 }

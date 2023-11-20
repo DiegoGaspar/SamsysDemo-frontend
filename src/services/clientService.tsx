@@ -2,6 +2,8 @@ import axios from "axios";
 import { ClientDTO } from "../models/client/clientDTO";
 import { ClientEditDTO } from "../models/client/clientEditDTO";
 import { MessagingHelper } from "../models/helper/messagingHelper";
+import { ClientCriateDTO } from "../models/client/clientCreateDTO";
+import { PaginationHelper } from "../models/helper/paginationHelper";
 
 var apiBaseUrl = process.env.REACT_APP_API_URL;
 export class ClientService {
@@ -18,6 +20,41 @@ export class ClientService {
         }
         catch (ex) {
             return new MessagingHelper<null>(false, "Ocorreu um erro inesperado ao obter o cliente", null)
+        }
+    }
+
+    async GetAll(pageNumber:number, pageSize:number): Promise<MessagingHelper<PaginationHelper | null>> {
+        try {
+            const result = await axios.get(`${apiBaseUrl}client/pageNumber=${pageNumber}/pageSize=${pageSize}`, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+            });
+
+            return result.data;
+        }
+        catch (ex) {
+            return new MessagingHelper<null>(false, "Ocorreu um erro inesperado ao obter o cliente", null)
+        }
+    }
+
+    async Post(dto: ClientCriateDTO): Promise<MessagingHelper<ClientDTO | null>> {
+        try {
+            const result = await axios.post(`${apiBaseUrl}client/create`, 
+            {               
+                ...dto
+            },{
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+            });
+
+            return result.data;
+        }
+        catch (ex) {
+            return new MessagingHelper<null>(false, "Ocorreu um erro inesperado ao tentar cadastrar o cliente", null)
         }
     }
 

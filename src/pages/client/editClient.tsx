@@ -29,7 +29,8 @@ export default function EditClient() {
         var client: ClientEditDTO = {
             name: resultGetClient.obj!.name,
             phoneNumber: resultGetClient.obj!.phoneNumber,
-            concurrencyToken: resultGetClient.obj!.concurrencyToken
+            concurrencyToken: resultGetClient.obj!.concurrencyToken,
+            dataNascimento: resultGetClient.obj!.dataNascimento
         }
 
         setErrorMessage("");
@@ -57,15 +58,15 @@ export default function EditClient() {
 
     return (
         <>
-            <div style={{ width: "100%" }}>
-                <Row>
-                    <Col xl={12}>
-                        <h1>Editar Cliente</h1>
-                    </Col>
-                </Row>
-            </div>
-
-
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div style={{ width: "100%" }}>
+                    <Row>
+                        <Col xl={12}>
+                            <h1>Editar Cliente</h1>
+                        </Col>
+                    </Row>
+                </div>
+            </nav>
             <div style={{ width: "20%", marginTop: "2em", display: "inline-block" }}>
                 <Row>
                     <Col xl={6} style={{ textAlign: "right" }}>
@@ -90,6 +91,20 @@ export default function EditClient() {
                 </Row>
 
                 <Row>
+                    <Col xl={6} style={{ textAlign: "right" }}>
+                        <label>Data de Nascimento: </label>
+                    </Col>                    
+                    <Col xl={6}>
+                    <input
+                        name="date"
+                        placeholder="date placeholder"
+                        type="date"
+                        defaultValue = {clientToUpdate?.dataNascimento ?? ""}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setClientToUpdate({ ...clientToUpdate, dataNascimento: e.target.value })}
+                        />
+                    </Col>  
+                </Row>
+                <Row>
                     <Col xl={12}>
                         <button className="btnUpdateClient"
                             onClick={update}>
@@ -97,7 +112,7 @@ export default function EditClient() {
                         </button>
                     </Col>
                 </Row>
-
+                
                 <Row>
                     <ClientStatusComponent
                         id={Number(id)}
@@ -106,6 +121,15 @@ export default function EditClient() {
                         style={{ width: "100%", marginTop: "1em" }}
                         setErrorMessage={setErrorMessage}
                         setSuccessMessage={setSuccessMessage} />
+                </Row>                
+                <Row>
+                    <Col xl={12}>
+                        <a className="navbar-brand" href="/">
+                            <button className="btnUpdateClient" >
+                                    Cancelar
+                            </button>
+                        </a>
+                    </Col>
                 </Row>
 
                 {errorMessage &&
